@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Brain-Machine Intelligence & Interdisciplinary Engineering Laboratory - 脑机智能与交叉工程实验室">
+    <title>BMI&IE Lab | 脑机智能与交叉工程实验室</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header id="navbar" class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="#">
+                    <img src="assets/logo.jpg" alt="BMI&IE Lab Logo" class="logo-img">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="#home" class="nav-item active">首页</a>
+                <a href="#research" class="nav-item">研究方向</a>
+                <a href="#team" class="nav-item">团队成员</a>
+                <a href="#publications" class="nav-item">科研成果</a>
+                <a href="#news" class="nav-item">实验室动态</a>
+                <a href="#join" class="nav-item">加入我们</a>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Segment -->
+    <section id="home" class="hero-section">
+        <div class="hero-background">
+            <img src="assets/banner.png" alt="Laboratory Background" class="hero-img">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content fade-up-element">
+            <h2 class="hero-subtitle">脑机智能与交叉工程实验室</h2>
+            <h1 class="hero-title">Brain-Machine Intelligence<br>& Interdisciplinary Engineering Laboratory</h1>
+            <a href="#research" class="explore-btn">探索研究领域</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>下滑探索</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Research Directions Segment -->
+    <section id="research" class="research-section">
+        <div class="container">
+            <div class="section-header fade-up-element">
+                <span class="section-subtitle">聚焦领域</span>
+                <h2 class="section-title">核心研究方向</h2>
+                <div class="heading-line"></div>
+            </div>
+
+            <div class="research-cards">
+                <!-- Card 1 -->
+                <div class="research-card fade-up-element">
+                    <div class="card-image-wrapper">
+                        <div class="card-image bg-bci"></div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-icon">01</div>
+                        <h3 class="card-title">脑机接口</h3>
+                        <p class="card-desc">探索大脑与机器之间的直接通信路径，解码神经信号，实现意念控制与神经反馈反馈的高级交互范式。</p>
+                        <a href="#" class="card-link">了解更多 <span class="arrow">→</span></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="research-card fade-up-element" style="transition-delay: 0.1s;">
+                    <div class="card-image-wrapper">
+                        <div class="card-image bg-ai"></div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-icon">02</div>
+                        <h3 class="card-title">人工智能</h3>
+                        <p class="card-desc">基于类脑计算与深度学习，构建强认知、强鲁棒性的智能算法模型，推动生命科学与信息科学的融合。</p>
+                        <a href="#" class="card-link">了解更多 <span class="arrow">→</span></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="research-card fade-up-element" style="transition-delay: 0.2s;">
+                    <div class="card-image-wrapper">
+                        <div class="card-image bg-ie"></div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-icon">03</div>
+                        <h3 class="card-title">交叉工程</h3>
+                        <p class="card-desc">结合电子工程、机械工程与生物医学，研发创新型智能硬件设备与机器人平台，加速前沿理论的工程化落地。</p>
+                        <a href="#" class="card-link">了解更多 <span class="arrow">→</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Segment -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <div class="section-header fade-up-element">
+                <span class="section-subtitle">人员架构</span>
+                <h2 class="section-title">团队成员</h2>
+                <div class="heading-line"></div>
+            </div>
+
+            <!-- PI -->
+            <div class="pi-section fade-up-element">
+                <h3 class="team-category-title">负责人 / 教授</h3>
+                <div class="team-grid pi-grid">
+                    <div class="team-card" style="cursor: pointer;" onclick="window.location.href='profile_mali.html'">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"
+                                style="background-image: url('assets/team/%E9%A9%AC%E5%8A%9B.png'); background-size: cover; background-position: center top;">
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">马 力</h4>
+                            <p class="member-role">实验室负责人 / 教授（特岗）</p>
+                            <p class="member-direction">人工智能与类脑计算、脑机接口与医工交叉</p>
+                            <p class="member-email">excellentmary@whut.edu.cn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Postdocs -->
+            <div class="team-category fade-up-element">
+                <h3 class="team-category-title">博士后研究员</h3>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">LI Si</h4>
+                            <p class="member-direction">脑电信号解码</p>
+                            <p class="member-email">lisi@bmi_ie_lab.edu</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">WANG Wu</h4>
+                            <p class="member-direction">类脑计算模型</p>
+                            <p class="member-email">wangwu@bmi_ie_lab.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ph.D Section -->
+            <div class="team-category fade-up-element">
+                <h3 class="team-category-title">博士研究生</h3>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">ZHAO Liu</h4>
+                            <p class="member-direction">深度学习与医疗图像</p>
+                            <p class="member-email">zhao@stu.edu</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">CHEN Qi</h4>
+                            <p class="member-direction">神经反馈机制研究</p>
+                            <p class="member-email">chen@stu.edu</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">SUN Ba</h4>
+                            <p class="member-direction">智能仿生义肢控制</p>
+                            <p class="member-email">sun@stu.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master Section -->
+            <div class="team-category fade-up-element">
+                <h3 class="team-category-title">硕士研究生</h3>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">ZHOU Jiu</h4>
+                            <p class="member-direction">非侵入式脑机接口</p>
+                            <p class="member-email">zhou@stu.edu</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <div class="member-img-wrapper">
+                            <div class="member-placeholder"></div>
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">WU Shi</h4>
+                            <p class="member-direction">多模态信号融合提取</p>
+                            <p class="member-email">wu@stu.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Segment -->
+    <section id="publications" class="pub-section bg-light">
+        <div class="container">
+            <div class="section-header fade-up-element">
+                <span class="section-subtitle">近期发表</span>
+                <h2 class="section-title">科研成果</h2>
+                <div class="heading-line"></div>
+            </div>
+
+            <div class="pub-year fade-up-element">
+                <h3 class="year-title">2026</h3>
+                <div class="pub-list">
+                    <div class="pub-item">
+                        <p class="pub-text">
+                            <strong>ZHANG San</strong>, LI Si, and WANG Wu. "A Novel Framework for Non-invasive
+                            Brain-Machine Interfacing with Ultra-low Latency." <em>Nature Computational Science</em>,
+                            2026.
+                        </p>
+                        <div class="pub-links">
+                            <a href="#" class="pub-btn" target="_blank">[PDF]</a>
+                            <a href="#" class="pub-btn" target="_blank">[Project Page]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="pub-text">
+                            ZHAO Liu, and <strong>ZHANG San</strong>. "Deep Neural Decoding of Motor Intentions using
+                            Spatiotemporal Transformers." <em>IEEE Transactions on Biomedical Engineering</em>, 2026.
+                        </p>
+                        <div class="pub-links">
+                            <a href="#" class="pub-btn" target="_blank">[PDF]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pub-year fade-up-element">
+                <h3 class="year-title">2025</h3>
+                <div class="pub-list">
+                    <div class="pub-item">
+                        <p class="pub-text">
+                            CHEN Qi, SUN Ba, and <strong>ZHANG San</strong>. "Sensory Feedback Restoration in Smart
+                            Prosthetics via Biomimetic Neuromodulation." <em>Science Robotics</em>, 2025.
+                        </p>
+                        <div class="pub-links">
+                            <a href="#" class="pub-btn" target="_blank">[PDF]</a>
+                            <a href="#" class="pub-btn" target="_blank">[Project Page]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Segment -->
+    <section id="news" class="news-section">
+        <div class="container">
+            <div class="section-header fade-up-element">
+                <span class="section-subtitle">前沿速递</span>
+                <h2 class="section-title">实验室动态</h2>
+                <div class="heading-line"></div>
+            </div>
+
+            <div class="news-list">
+                <div class="news-item fade-up-element">
+                    <div class="news-img-wrapper">
+                        <div class="news-img-placeholder"></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">April 5, 2026</span>
+                        <h3 class="news-title">Lab welcomes new Postdocs and Graduate students</h3>
+                        <p class="news-desc">We are excited to welcome several outstanding new members joining our lab
+                            this spring semester to work across Brain-Machine Interfaces, AI, and Neural Engineering
+                            disciplines.</p>
+                    </div>
+                </div>
+
+                <div class="news-item fade-up-element">
+                    <div class="news-img-wrapper">
+                        <div class="news-img-placeholder"></div>
+                    </div>
+                    <div class="news-content">
+                        <span class="news-date">January 20, 2026</span>
+                        <h3 class="news-title">Paper accepted to Nature Computational Science</h3>
+                        <p class="news-desc">Congratulations to Dr. ZHANG and the lab team! Our latest study on
+                            ultra-low latency frameworks for non-invasive BMI has been officially published.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Segment -->
+    <footer class="footer fade-up-element">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>BMI&IE Lab</h3>
+                    <p>脑机智能与交叉工程实验室</p>
+                </div>
+                <div class="footer-links">
+                    <p>地址：中国 · XX大学 · XX楼</p>
+                    <p>邮箱：contact@bmi_ie_lab.edu</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BMI&IE LAB. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>
