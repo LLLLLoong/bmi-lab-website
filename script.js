@@ -80,3 +80,32 @@ const checkNavbarScroll = () => {
 window.addEventListener('scroll', checkNavbarScroll);
 checkNavbarScroll(); // check on load
 
+
+// Search Overlay Logic dynamically bound
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBtn = document.getElementById('search-btn');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchInput = document.getElementById('search-input');
+
+    if (searchBtn && searchOverlay) {
+        searchBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            searchOverlay.classList.toggle('active');
+            if (searchOverlay.classList.contains('active')) {
+                setTimeout(() => { searchInput.focus(); }, 200);
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (searchOverlay.classList.contains('active') && !searchOverlay.contains(e.target) && e.target !== searchBtn && !searchBtn.contains(e.target)) {
+                searchOverlay.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+                searchOverlay.classList.remove('active');
+            }
+        });
+    }
+});

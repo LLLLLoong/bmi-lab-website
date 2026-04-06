@@ -1004,3 +1004,122 @@ body.page-loaded {
 .nav-item.nav-btn-ghost {
     padding: 8px 26px !important;
 }
+
+/* --- HEADER LEFT-ALIGNMENT & SEARCH REFACTOR --- */
+.nav-container-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 80px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 4rem; /* Specific 4rem gap between Logo and NavLinks */
+}
+
+/* Force override any previously injected logo/nav margins */
+.navbar .logo-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.navbar .nav-links {
+    margin-right: 0 !important;
+    gap: 2rem !important; /* Specific reduced 2rem gap internally */
+    justify-content: flex-start !important;
+    position: relative;
+    top: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Search Button Styles (Follows color of text smoothly) */
+.search-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; /* Starting color on transparent bg */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 8px;
+}
+
+/* Automatically switches when navbar becomes white */
+.navbar.nav-scrolled .search-btn {
+    color: #333333; 
+}
+
+.search-btn:hover {
+    color: var(--primary-gold) !important;
+    transform: scale(1.1);
+}
+
+/* Minimalist Search Overlay */
+.search-overlay {
+    position: absolute;
+    top: 80px; /* Fits exactly under navbar */
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    max-height: 0; 
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.search-overlay.active {
+    max-height: 120px;
+    opacity: 1;
+    border-top: 1px solid #EEEEEE;
+}
+
+.search-content {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 30px 40px;
+}
+
+/* Ghost line text input */
+#search-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--primary-gold);
+    background: transparent;
+    padding: 8px 0;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #333333;
+    outline: none;
+    transition: border-width 0.2s ease;
+}
+
+#search-input:focus {
+    border-bottom: 2px solid var(--primary-gold);
+}
+
+#search-input::placeholder {
+    color: #999999;
+    font-weight: 300;
+}
+
+@media (max-width: 1024px) {
+    .nav-left { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-container-inner { padding: 0 24px; }
+    .search-content { padding: 20px 24px; }
+}
