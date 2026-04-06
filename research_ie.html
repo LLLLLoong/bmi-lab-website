@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交叉工程研究 - BMI&IE Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .research-page-section { padding: 140px 0 80px; background-color: var(--white); min-height: calc(100vh - 200px); }
+        .research-header { text-align: center; margin-bottom: 60px; padding: 40px; background: var(--bg-light); border-radius: 12px; box-shadow: var(--shadow-light); }
+        .research-header h1 { font-size: 36px; color: var(--text-dark); margin-bottom: 16px; font-weight: 600; }
+        .research-header p { font-size: 18px; color: var(--primary-gold); font-weight: 500; letter-spacing: 1px; }
+        .research-content { max-width: 900px; margin: 0 auto; }
+        .research-content h2 { font-size: 24px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 12px; margin: 48px 0 24px; position: relative; font-weight: 600; }
+        .research-content h2::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 60px; height: 2px; background-color: var(--primary-gold); }
+        .research-content p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px; text-align: justify; }
+        .research-list { list-style: none; padding: 0; margin-bottom: 32px; }
+        .research-list li { margin-bottom: 16px; font-size: 16px; line-height: 1.7; color: var(--text-muted); padding-left: 20px; position: relative; }
+        .research-list li::before { content: ''; width: 6px; height: 6px; background-color: var(--primary-gold); border-radius: 50%; position: absolute; left: 0; top: 10px; }
+        .back-btn { display: inline-flex; align-items: center; color: var(--primary-gold); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: var(--transition); }
+        .back-btn:hover { transform: translateX(-4px); }
+    </style>
+</head>
+<body>
+
+    <header id="navbar" class="navbar" style="background-color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/logo.jpg" alt="BMI&IE Lab Logo" class="logo-img" onerror="this.src=''; this.alt='BMI&IE Lab'; this.style.fontSize='20px'; this.style.fontWeight='bold'; this.style.color='#333'; this.style.textDecoration='none';">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html#home" class="nav-item">首页</a>
+                <a href="index.html#research" class="nav-item active">研究方向</a>
+                <a href="index.html#team" class="nav-item">团队成员</a>
+                <a href="index.html#publications" class="nav-item">科研成果</a>
+                <a href="index.html#news" class="nav-item">实验室动态</a>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="research-page-section">
+        <div class="container">
+            <a href="index.html#research" class="back-btn">← 返回研究方向</a>
+            
+            <div class="research-header fade-up-element">
+                <h1>交叉工程与实体机器人 (Interdisciplinary Engineering)</h1>
+                <p>将前沿神经科学与控制论理论具象化为实际医疗机电设施</p>
+            </div>
+
+            <div class="research-content fade-up-element">
+                <h2>研究概况</h2>
+                <p>如果说人工智能与脑科学是我们研究的“灵魂”，那么交叉工程就是承载这些高级功能的“躯体”。我们通过打破电子工程（EE）、计算机科学（CS）与机械工程（Mechatronics）和医学（Med）的围墙，进行超强跨学科合作融合，研发能够在医院、助残、飞行模拟等严苛条件下长时间可靠工作的软硬件一体化设备与前沿机器人交互控制系统。</p>
+
+                <h2>主要研究方向</h2>
+                <ul class="research-list">
+                    <li><strong>柔性传感阵列与便携化嵌入式设备：</strong> 利用新型纳米导电涂层与弹性凝胶材料开发皮肤级附着强度的多模态生理电（如肌电EMG、心电ECG）采集片，及与其对接的微型低功耗 ARM 芯片控制主板。</li>
+                    <li><strong>外骨骼机电系统人机协同控制机制：</strong> 研究针对中风偏瘫、下肢截瘫患者的步态代偿与意图跟随控制律。为下肢外骨骼机器人配置复杂的环境自适应传感器与动态刚度调节动力学部件。</li>
+                    <li><strong>仿生微纳神经调节器与脑刺激体：</strong> 在系统工程学角度搭建无线的经颅电流/磁体刺激仪硬件原形，研发适用于小型哺乳动物和猴类的高密度集成功率放大微电路阵列。</li>
+                </ul>
+
+                <h2>核心应用场景</h2>
+                <p>实验室团队主持了多项国家自然科学基金等重点器械攻关任务，成功研发过“可重构柔性踝足外骨骼系统”。团队的工业级工程落地执行力与前沿科研创新形成了一种绝佳的闭环内生动能。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Segment -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>BMI&IE Lab</h3>
+                    <p>脑机智能与交叉工程实验室</p>
+                </div>
+                <div class="footer-links">
+                    <p>地址：中国 · 武汉理工大学</p>
+                    <p>邮箱：contact@bmi_ie_lab.edu</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BMI&IE LAB. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
