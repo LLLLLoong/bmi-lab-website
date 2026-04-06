@@ -1123,3 +1123,19 @@ body.page-loaded {
     .nav-container-inner { padding: 0 24px; }
     .search-content { padding: 20px 24px; }
 }
+
+
+/* --- Force Full Width Navbar --- */
+.nav-container-inner {
+    max-width: none !important;
+    padding: 0 3vw !important; /* Push aggressively to edges with small screen safety margin */
+}
+
+.search-content {
+    max-width: none !important; 
+    padding: 30px 3vw !important;
+}
+
+.logo-container {
+    margin-left: 0 !important; /* Remove hardcoded baseline margins */
+}
