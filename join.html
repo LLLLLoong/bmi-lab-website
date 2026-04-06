@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入我们 - BMI&IE Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .page-section { padding-top: 140px; background-color: var(--white); min-height: 75vh; }
+        .join-header { text-align: center; margin-bottom: 60px; padding: 40px; background: var(--bg-light); border-radius: 12px; box-shadow: var(--shadow-light); }
+        .join-header h1 { font-family: 'Georgia', serif; font-size: 36px; color: var(--text-dark); margin-bottom: 16px; font-weight: 600; }
+        .join-header p { font-size: 18px; color: var(--primary-gold); font-weight: 500; letter-spacing: 1px; }
+        
+        .join-content { max-width: 900px; margin: 0 auto; padding-bottom: 80px;}
+        .join-card { background: var(--white); padding: 40px; border-radius: 12px; border: 1px solid var(--border-light); margin-bottom: 40px; box-shadow: var(--shadow-light); transition: var(--transition); }
+        .join-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--primary-gold); }
+        
+        .join-card h2 { font-size: 24px; color: var(--primary-gold); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .join-card p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px; }
+        .join-list { list-style: none; padding: 0; margin-bottom: 24px; }
+        .join-list li { margin-bottom: 12px; font-size: 16px; line-height: 1.7; color: var(--text-muted); padding-left: 20px; position: relative; }
+        .join-list li::before { content: ''; width: 6px; height: 6px; background-color: var(--primary-gold); border-radius: 50%; position: absolute; left: 0; top: 10px; }
+        
+        .apply-btn { display: inline-block; padding: 12px 28px; background-color: var(--primary-gold); color: #fff; text-decoration: none; font-size: 15px; font-weight: 500; border-radius: 4px; transition: var(--transition); margin-top: 10px; }
+        .apply-btn:hover { background-color: #8c7343; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(166,137,82,0.2); }
+        
+        .contact-box { background: var(--bg-light); border-left: 4px solid var(--primary-gold); padding: 24px; border-radius: 0 8px 8px 0; margin-top: 60px; }
+        .contact-box h3 { color: var(--text-dark); margin-bottom: 12px; }
+        .contact-box p { margin: 0; font-size: 16px; color: var(--text-muted); }
+        .contact-box strong { color: var(--primary-gold); font-size: 18px; }
+    </style>
+</head>
+<body>
+
+    <header id="navbar" class="navbar" style="background-color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/logo.jpg" alt="BMI&IE Lab Logo" class="logo-img" onerror="this.src=''; this.alt='BMI&IE Lab'; this.style.fontSize='20px'; this.style.fontWeight='bold'; this.style.color='#333'; this.style.textDecoration='none';">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="research.html" class="nav-item">研究方向</a>
+                <a href="team.html" class="nav-item">团队成员</a>
+                <a href="publications.html" class="nav-item">科研成果</a>
+                <a href="news.html" class="nav-item">实验室动态</a>
+                <a href="join.html" class="nav-item active">加入我们</a>
+            </nav>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-section">
+        <div class="container">
+            <div class="join-header fade-up-element">
+                <h1>加入我们 / Open Positions</h1>
+                <p>Welcome to Brain-Machine Intelligence & Interdisciplinary Engineering Lab</p>
+            </div>
+
+            <div class="join-content">
+                <div class="join-card fade-up-element">
+                    <h2>博士后研究员 (Postdoctoral Researchers)</h2>
+                    <p>我们正在寻找具有独立承担科研项目能力、在相关领域有顶级期刊发表经验的博士后。入选者将负责领导实验室核心算法或硬件平台的攻关研发，并协助指导硕博研究生。</p>
+                    <ul class="join-list">
+                        <li><strong>方向需求：</strong> 脑机接口系统、类脑计算与人工智能大模型、微电子柔性传感、康复控制外骨骼。</li>
+                        <li><strong>职位要求：</strong> 近3年内取得国内外知名高校相关专业博士学位，具备极强的英语写作与交流能力。</li>
+                        <li><strong>薪资待遇：</strong> 享有高校及实验室双重丰厚薪资补贴（面议），实验室全额资助参加顶级国际学术会议。</li>
+                    </ul>
+                    <a href="mailto:excellentmary@whut.edu.cn?subject=博士后申请-姓名-研究方向" class="apply-btn">发送简历申请</a>
+                </div>
+
+                <div class="join-card fade-up-element" style="transition-delay: 0.1s;">
+                    <h2>博士/硕士研究生 (Ph.D. / Master Students)</h2>
+                    <p>实验室每年开放 2-3 名博士名额与 4-6 名硕士保送/统考名额。我们青睐数学基础扎实、编程能力出众，对科研充满绝对热爱的学生加入我们的硬核大家庭。</p>
+                    <ul class="join-list">
+                        <li><strong>专业要求：</strong> 计算机科学、生物医学工程、自动化、电子工程及相关专业。</li>
+                        <li><strong>必备技能：</strong> 熟练掌握 C++/Python 等语言，有 PyTorch/TensorFlow 框架深度学习实战经验者优先。</li>
+                        <li><strong>重点说明：</strong> 推免保研学生请在暑假（7月-8月）尽早与实验室老师联系预定名额。</li>
+                    </ul>
+                    <a href="mailto:excellentmary@whut.edu.cn?subject=硕博申请-姓名-本科学校" class="apply-btn">发送简历申请</a>
+                </div>
+
+                <div class="join-card fade-up-element" style="transition-delay: 0.2s;">
+                    <h2>本科实习生 (Undergraduate Interns)</h2>
+                    <p>我们非常欢迎学术潜力突出、学有余力的大二/大三本科生提前进入实验室参与科研。对于表现优异的本科生，实验室将全力推荐出国深造或本校直博。</p>
+                    <ul class="join-list">
+                        <li><strong>要求：</strong> 具备极强的主动学习与沟通能力，每周能保证不少于 15 小时的连续实验室在岗时间。</li>
+                    </ul>
+                    <a href="mailto:excellentmary@whut.edu.cn?subject=本科实习申请-姓名-年级" class="apply-btn">发送简历申请</a>
+                </div>
+
+                <div class="contact-box fade-up-element" style="transition-delay: 0.3s;">
+                    <h3>📩 导师直连通道 / Contact Us</h3>
+                    <p>请将包含个人陈述、详细简历（CV）、成绩单以及任何代表性成果的 PDF 发送至马力教授邮箱：</p>
+                    <p style="margin-top: 12px;">Email: <strong>excellentmary@whut.edu.cn</strong></p>
+                    <p style="margin-top: 8px; font-size: 14px;">(邮件标题请务必准守“申请类型-姓名-方向”的格式，通常会在 3 个工作日内得到导师亲自回复)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Segment -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>BMI&IE Lab</h3>
+                    <p>脑机智能与交叉工程实验室</p>
+                </div>
+                <div class="footer-links">
+                    <p>地址：中国 · 武汉理工大学</p>
+                    <p>邮箱：excellentmary@whut.edu.cn</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BMI&IE LAB. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
