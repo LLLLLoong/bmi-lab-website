@@ -993,3 +993,14 @@ body.page-loaded {
         color: #333333 !important;
     }
 }
+
+
+/* --- Font Size Update --- */
+.nav-item {
+    font-size: 18px !important;
+    letter-spacing: 0.5px !important;
+}
+
+.nav-item.nav-btn-ghost {
+    padding: 8px 26px !important;
+}
