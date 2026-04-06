@@ -825,3 +825,76 @@ body.page-loaded {
     .overview-desc { text-align: center; }
     .overview-btn { align-self: center; }
 }
+
+
+/* --- Gapless Fullwidth Research Cards --- */
+.research-cards.full-width-grid {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+@media (min-width: 901px) {
+    .research-cards.full-width-grid .research-card {
+        flex: 0 0 calc(100% / 3);
+        border-radius: 0;
+        box-shadow: none;
+        border-right: 1px solid var(--border-light);
+        border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light);
+        margin: 0;
+    }
+    
+    .research-cards.full-width-grid .research-card:last-child {
+        border-right: none;
+    }
+    
+    .research-cards.full-width-grid .card-image-wrapper {
+        height: 280px;
+    }
+    
+    .research-cards.full-width-grid .card-content {
+        padding: 50px 40px;
+        background-color: var(--white);
+        transition: background-color 0.4s ease;
+    }
+}
+
+/* Hover effects */
+.research-cards.full-width-grid .research-card:hover .card-content {
+    background-color: #faf8f5;
+}
+.research-cards.full-width-grid .research-card:hover .card-image {
+    transform: scale(1.08);
+}
+.research-cards.full-width-grid .card-image {
+    transition: transform 0.6s ease;
+    opacity: 1 !important;
+}
+
+/* Specific Stagger & Scroll Offset Override */
+.fade-up-element {
+    transform: translateY(60px);
+}
+.fade-up-element.visible {
+    transform: translateY(0) !important;
+}
+
+@media (max-width: 900px) {
+    .research-cards.full-width-grid {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 24px;
+        gap: 24px;
+        box-sizing: border-box;
+    }
+    .research-cards.full-width-grid .research-card {
+        flex: 1 1 auto;
+        border-radius: 8px; 
+        border: 1px solid var(--border-light);
+        box-shadow: var(--shadow-light);
+    }
+}
