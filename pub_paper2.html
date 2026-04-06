@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Abstract - BMI&IE Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .research-page-section { padding: 140px 0 80px; background-color: var(--white); min-height: calc(100vh - 200px); }
+        .research-header { margin-bottom: 40px; padding: 40px; background: var(--bg-light); border-radius: 12px; box-shadow: var(--shadow-light); }
+        .research-header h1 { font-size: 28px; color: var(--text-dark); margin-bottom: 16px; font-weight: 600; line-height: 1.4; }
+        .research-header .journal { font-size: 16px; color: var(--text-muted); margin-bottom: 12px; font-style: italic; }
+        .research-header .authors { font-size: 16px; color: var(--primary-gold); font-weight: 500; }
+        .research-content { max-width: 900px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 12px; border: 1px solid var(--border-light); }
+        .research-content h2 { font-size: 22px; color: var(--text-dark); border-bottom: 2px solid var(--border-light); padding-bottom: 12px; margin: 0 0 24px; position: relative; font-weight: 600; }
+        .research-content h2::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 40px; height: 2px; background-color: var(--primary-gold); }
+        .research-content p { font-size: 16px; line-height: 1.8; color: var(--text-muted); text-align: justify; }
+        .back-btn { display: inline-flex; align-items: center; color: var(--primary-gold); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: var(--transition); }
+        .back-btn:hover { transform: translateX(-4px); }
+    </style>
+</head>
+<body>
+    <header id="navbar" class="navbar" style="background-color: #ffffff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
+        <div class="nav-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="assets/logo.jpg" alt="BMI&IE Lab Logo" class="logo-img" onerror="this.src=''; this.alt='BMI&IE Lab'; this.style.fontSize='20px'; this.style.fontWeight='bold'; this.style.color='#333'; this.style.textDecoration='none';">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html#home" class="nav-item">首页</a>
+                <a href="index.html#research" class="nav-item">研究方向</a>
+                <a href="index.html#team" class="nav-item">团队成员</a>
+                <a href="index.html#publications" class="nav-item active">科研成果</a>
+                <a href="index.html#news" class="nav-item">实验室动态</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="research-page-section">
+        <div class="container">
+            <a href="index.html#publications" class="back-btn">← 返回科研成果</a>
+            <div class="research-header fade-up-element">
+                <p class="journal">IEEE Transactions on Biomedical Engineering, 2026</p>
+                <h1>Deep Neural Decoding of Motor Intentions using Spatiotemporal Transformers</h1>
+                <p class="authors">ZHAO Liu, and ZHANG San</p>
+            </div>
+            <div class="research-content fade-up-element">
+                <h2>Abstract</h2>
+                <p>Accurate interpretation of complex motor intentions from electroencephalogram (EEG) signals requires capturing both profound spatial dependencies among neural regions and long-range temporal dynamics. This study introduces the EEG-Spatiotemporal Transformer (EST), a novel self-attention mechanism specifically tailored for non-stationary biological signals. Unlike conventional CNN or RNN architectures, EST dynamically weights the channels and time frames most relevant to the executed task. We validate our model on a multi-class continuous reaching paradigm. The EST significantly outperforms traditional benchmarks, yielding an average classification accuracy of 89.2% across subjects while exhibiting exceptional robustness to electrode displacement and typical artifacts.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 BMI&IE LAB. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
