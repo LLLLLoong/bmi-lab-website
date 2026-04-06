@@ -9,85 +9,74 @@ if (mobileMenuBtn) {
   });
 }
 
-// Smooth Scrolling for Navigation Links
-const navItems = document.querySelectorAll('.nav-item');
+document.addEventListener("DOMContentLoaded", () => {
+  // Page Transition Fade-In
+  setTimeout(() => {
+    document.body.classList.add('page-loaded');
+  }, 10);
 
-navItems.forEach(item => {
-  item.addEventListener('click', (e) => {
-    const targetId = item.getAttribute('href');
-    
-    // Only prevent default and smooth scroll if it's an anchor link on the current page
-    if (targetId && targetId.startsWith('#')) {
+  // Auto Scroll to Top on Page Load (Native Behavior augmentation)
+  window.scrollTo(0, 0);
+
+  // Highlight Active Nav Item Based on URL Path instead of Scroll
+  const navItems = document.querySelectorAll('.nav-item');
+  const path = window.location.pathname.split('/').pop() || 'index.html';
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('href') === path || 
+       (path === '' && item.getAttribute('href') === 'index.html')) {
+      item.classList.add('active');
+    }
+  });
+
+  // Page Transition Fade-Out on Link Click
+  const links = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"])');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetUrl = link.getAttribute('href');
+      
+      // Ignore javascript actions
+      if (!targetUrl || targetUrl.startsWith('javascript:')) return;
+      
       e.preventDefault();
       
-      const targetElement = document.querySelector(targetId);
+      // Trigger fade out
+      document.body.classList.remove('page-loaded');
       
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-        
-        // Close mobile menu if open
-        if (navLinks && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-          mobileMenuBtn.classList.remove('active');
-        }
-      }
-    }
+      // Navigate after transition duration (400ms)
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 400); 
+    });
   });
 });
 
 // Scroll Animation for Fade-up Elements
 const fadeUpElements = document.querySelectorAll('.fade-up-element');
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
     }
   });
-}, {
-  threshold: 0.1
-});
+}, { threshold: 0.1 });
 
 fadeUpElements.forEach(element => {
   observer.observe(element);
 });
 
-// Navbar Scroll Effect
+// Navbar Background Change on Scroll
 const navbar = document.getElementById('navbar');
-
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 100) {
-    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-  } else {
-    navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+  const currentPath = window.location.pathname.split('/').pop();
+  const isHome = (currentPath === '' || currentPath === 'index.html');
+  
+  // On inner pages, navbar is always white. On home, it transitions.
+  if (!isHome || window.scrollY > 50) {
+    navbar.style.backgroundColor = '#ffffff';
     navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+  } else {
+    navbar.style.backgroundColor = 'transparent';
+    navbar.style.boxShadow = 'none';
   }
-});
-
-// Active Nav Item based on Scroll Position
-const sections = document.querySelectorAll('section');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.clientHeight;
-    
-    if (window.scrollY >= sectionTop - 100) {
-      current = section.getAttribute('id');
-    }
-  });
-  
-  navItems.forEach(item => {
-    item.classList.remove('active');
-    if (item.getAttribute('href') === `#${current}`) {
-      item.classList.add('active');
-    }
-  });
 });

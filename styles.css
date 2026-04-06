@@ -760,3 +760,14 @@ body {
     padding: 24px;
   }
 }
+
+
+/* Page Transition CSS */
+body {
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+    overflow-x: hidden;
+}
+body.page-loaded {
+    opacity: 1;
+}
