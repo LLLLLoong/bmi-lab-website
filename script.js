@@ -67,16 +67,16 @@ fadeUpElements.forEach(element => {
 
 // Navbar Background Change on Scroll
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
+const checkNavbarScroll = () => {
   const currentPath = window.location.pathname.split('/').pop();
   const isHome = (currentPath === '' || currentPath === 'index.html');
   
-  // On inner pages, navbar is always white. On home, it transitions.
-  if (!isHome || window.scrollY > 50) {
-    navbar.style.backgroundColor = '#ffffff';
-    navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+  if (!isHome || window.scrollY > 30) {
+    navbar.classList.add('nav-scrolled');
   } else {
-    navbar.style.backgroundColor = 'transparent';
-    navbar.style.boxShadow = 'none';
+    navbar.classList.remove('nav-scrolled');
   }
-});
+};
+window.addEventListener('scroll', checkNavbarScroll);
+checkNavbarScroll(); // check on load
+
