@@ -71,31 +71,12 @@
                 <div class="heading-line"></div>
             </div>
 
-            <div class="news-list">
-                <div class="news-item fade-up-element">
-                    <div class="news-img-wrapper">
-                        <div class="news-img-placeholder"></div>
-                    </div>
-                    <div class="news-content">
-                        <span class="news-date">April 5, 2026</span>
-                        <h3 class="news-title">Lab welcomes new Postdocs and Graduate students</h3>
-                        <p class="news-desc">We are excited to welcome several outstanding new members joining our lab
-                            this spring semester to work across Brain-Machine Interfaces, AI, and Neural Engineering
-                            disciplines.</p>
-                    </div>
-                </div>
-
-                <div class="news-item fade-up-element">
-                    <div class="news-img-wrapper">
-                        <div class="news-img-placeholder"></div>
-                    </div>
-                    <div class="news-content">
-                        <span class="news-date">January 20, 2026</span>
-                        <h3 class="news-title">Paper accepted to Nature Computational Science</h3>
-                        <p class="news-desc">Congratulations to Dr. ZHANG and the lab team! Our latest study on
-                            ultra-low latency frameworks for non-invasive BMI has been officially published.</p>
-                    </div>
-                </div>
+            <div class="news-list" id="dynamic-news-list">
+                <div style="text-align:center; padding: 80px; font-family: Inter, sans-serif; color: #888;">
+                     <div style="display:inline-block; font-size: 24px; animation: pulse 1.5s infinite;">📡</div>
+                     <p style="margin-top:20px; font-size: 16px;">引擎轰鸣中，正将数据实时引渡至前台面板...</p>
+                 </div>
+                 <style>@keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; transform:scale(1.2); } 100% { opacity: 0.3; } }</style>
             </div>
         </div>
     </section>

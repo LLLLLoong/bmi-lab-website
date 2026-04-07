@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/cms-api/:path*",
+      "destination": "http://39.98.79.172/wp-json/:path*"
+    },
+    {
+      "source": "/cms-media/:path*",
+      "destination": "http://39.98.79.172/wp-content/uploads/:path*"
+    }
+  ]
+}

@@ -109,3 +109,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// -----------------------------------------------------
+// 🚀 WordPress CMS Core Fetch API Integration (Vercel Proxy Ready)
+// -----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const newsList = document.getElementById('dynamic-news-list');
+    if (newsList) {
+        // Detect if running locally or on Vercel
+        const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const apiBase = isLocal ? 'http://39.98.79.172/wp-json' : '/cms-api';
+        
+        fetch(`${apiBase}/wp/v2/posts?_embed`)
+            .then(res => {
+                if (!res.ok) throw new Error('API Unreachable');
+                return res.json();
+            })
+            .then(posts => {
+                if (!posts || posts.length === 0) {
+                    newsList.innerHTML = '<div style="text-align:center; padding: 80px; color:#888;">目前数据库中没有上传文章，快去您的 WordPress 后台发一篇试试吧！</div>';
+                    return;
+                }
+                
+                newsList.innerHTML = ''; 
+                
+                posts.forEach((post, index) => {
+                    let coverUrl = '';
+                    if (post._embedded && post._embedded['wp:featuredmedia']) {
+                        let originalUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                        // Vercel HTTPS proxy replacement for images to prevent Mixed Content security blocking
+                        coverUrl = isLocal ? originalUrl : originalUrl.replace('http://39.98.79.172/wp-content/uploads/', '/cms-media/');
+                    }
+                    
+                    const coverHtml = coverUrl ? 
+                        '<img src="' + coverUrl + '" style="width:100%; height:100%; object-fit:cover; transition: transform 0.6s ease;">' : 
+                        '<div class="news-img-placeholder"></div>';
+                    
+                    const dateObj = new Date(post.date);
+                    const formattedDate = dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const delay = index * 0.15;
+                    
+                    const titleText = post.title.rendered;
+                    let descText = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim(); 
+                    
+                    const itemHtml = `<div class="news-item fade-up-element visible" style="transition-delay: ${delay}s; opacity: 1; transform: translateY(0); display: flex;">
+                        <style>
+                            .news-item:hover img { transform: scale(1.08) !important; }
+                            .news-item .news-img-wrapper { overflow: hidden; }
+                        </style>
+                        <div class="news-img-wrapper">
+                            ${coverHtml}
+                        </div>
+                        <div class="news-content">
+                            <span class="news-date">${formattedDate}</span>
+                            <h3 class="news-title">${titleText || 'Untitled'}</h3>
+                            <p class="news-desc">${descText}</p>
+                        </div>
+                    </div>`;
+                    
+                    newsList.innerHTML += itemHtml;
+                });
+            })
+            .catch(error => {
+                console.error("WordPress fetch offline:", error);
+                newsList.innerHTML = '<div style="text-align:center; padding: 80px; color:#A68952; border: 1px dashed #A68952; border-radius: 8px;">📡 连接到重型数据中台 (WordPress) 失败。<br><br>请确保您的阿里云服务器状态正常！</div>';
+            });
+    }
+});
