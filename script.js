@@ -127,14 +127,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 return res.json();
             })
             .then(posts => {
-                if (!posts || posts.length === 0) {
+                const teamKeywords = ['pi', '教授', '负责人', '特岗', 'postdoc', '博士后', 'phd', '博士', '博士生', 'master', '硕士', '硕士生', 'alumni', '校友', '毕业'];
+                
+                const newsPosts = posts ? posts.filter(post => {
+                    if (post._embedded && post._embedded['wp:term']) {
+                        const categories = post._embedded['wp:term'][0] || [];
+                        return !categories.some(cat => {
+                            const catName = cat.name.toLowerCase();
+                            return teamKeywords.some(kw => catName.includes(kw));
+                        });
+                    }
+                    return true;
+                }) : [];
+
+                if (newsPosts.length === 0) {
                     newsList.innerHTML = '<div style="text-align:center; padding: 80px; color:#888;">目前数据库中没有上传文章，快去您的 WordPress 后台发一篇试试吧！</div>';
                     return;
                 }
                 
                 newsList.innerHTML = ''; 
                 
-                posts.forEach((post, index) => {
+                newsPosts.forEach((post, index) => {
                     let coverUrl = '';
                     if (post._embedded && post._embedded['wp:featuredmedia']) {
                         let originalUrl = post._embedded['wp:featuredmedia'][0].source_url;
