@@ -787,8 +787,6 @@ body.page-loaded {
 .news-img-placeholder { width: 100%; height: 100%; transition: transform 0.5s ease; }
 .news-item:hover .news-img-placeholder { transform: scale(1.05); }
 
-.news-item:nth-child(1) .news-img-placeholder { background-image: url('assets/news_1.png'); background-size: cover; background-position: center; }
-.news-item:nth-child(2) .news-img-placeholder { background-image: url('assets/news_2.png'); background-size: cover; background-position: center; }
 
 .news-content { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 .news-date { font-size: 14px; font-weight: 500; color: var(--primary-gold); letter-spacing: 1px; text-transform: uppercase; }

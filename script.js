@@ -177,3 +177,155 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 });
+
+
+
+// -----------------------------------------------------
+// 🚀 WordPress CMS Core Fetch API Integration (TEAM MEMBERS & DETAIL)
+// -----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const apiBase = isLocal ? 'http://39.98.79.172/wp-json' : '/cms-api';
+
+    // 1. Logic for team.html (Grid view)
+    const teamContainer = document.getElementById('dynamic-team-container');
+    if (teamContainer) {
+        fetch(`${apiBase}/wp/v2/posts?per_page=100&_embed`)
+            .then(res => res.json())
+            .then(posts => {
+                if (!posts || posts.length === 0) return;
+                
+                const groups = [
+                    { id: 'pi', title: '负责人 / 教授', keywords: ['pi', '教授', '负责人', '特岗'], posts: [] },
+                    { id: 'postdoc', title: '博士后研究员', keywords: ['postdoc', '博士后'], posts: [] },
+                    { id: 'phd', title: '博士研究生', keywords: ['phd', '博士', '博士生'], posts: [] },
+                    { id: 'master', title: '硕士研究生', keywords: ['master', '硕士', '硕士生'], posts: [] },
+                    { id: 'alumni', title: '毕业校友', keywords: ['alumni', '校友', '毕业'], posts: [] }
+                ];
+                
+                let hasTeamMembers = false;
+                posts.forEach(post => {
+                    if (post._embedded && post._embedded['wp:term']) {
+                        const categories = post._embedded['wp:term'][0] || [];
+                        categories.forEach(cat => {
+                            const catName = cat.name.toLowerCase();
+                            groups.forEach(group => {
+                                if (group.keywords.some(kw => catName.includes(kw))) {
+                                    post.matchedRole = group.title;
+                                    group.posts.push(post);
+                                    hasTeamMembers = true;
+                                }
+                            });
+                        });
+                    }
+                });
+                
+                if (!hasTeamMembers) {
+                    teamContainer.innerHTML = '<div style="text-align:center; padding: 80px; color:#888;">数据库中未检测到团队成员分组。</div>';
+                    return;
+                }
+                
+                teamContainer.innerHTML = '';
+                groups.forEach((group, gIndex) => {
+                    if (group.posts.length === 0) return;
+                    let html = `
+                        <div class="team-category fade-up-element visible" style="transition-delay: ${gIndex * 0.1}s; opacity: 1; transform: none;">
+                            <h3 class="team-category-title">${group.title}</h3>
+                            <div class="team-grid ${group.id === 'pi' ? 'pi-grid' : ''}">
+                    `;
+                    
+                    group.posts.forEach((member) => {
+                        let avatarUrl = '';
+                        if (member._embedded && member._embedded['wp:featuredmedia']) {
+                            let originalUrl = member._embedded['wp:featuredmedia'][0].source_url;
+                            avatarUrl = isLocal ? originalUrl : originalUrl.replace('http://39.98.79.172/wp-content/uploads/', '/cms-media/');
+                        }
+                        const avatarHtml = avatarUrl ? 
+                            `<div class="member-placeholder" style="background-image: url('${avatarUrl}'); background-size: cover; background-position: center top; transition: transform 0.4s;"></div>` : 
+                            '<div class="member-placeholder" style="background: #2a2a2a; display:flex; align-items:center; justify-content:center; color:#666;">No Photo</div>';
+                        
+                        // Parse WP Excerpt by splitting newlines to extract lines
+                        // Convention: line 1 = Direction, line 2 = Contact
+                        let rawText = member.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                        let lines = rawText.split(/[\n\r]+/).map(r => r.trim()).filter(r => r !== '');
+                        let direction = lines[0] || '暂无研究方向';
+                        
+                        html += `
+                            <div class="team-card dynamic-team-card" onclick="window.location.href='member_detail.html?id=${member.id}'" style="cursor:pointer;">
+                                <style>.dynamic-team-card:hover .member-placeholder { transform: scale(1.05); }</style>
+                                <div class="member-img-wrapper" style="overflow:hidden;">
+                                    ${avatarHtml}
+                                </div>
+                                <div class="member-info">
+                                    <h4 class="member-name">${member.title.rendered}</h4>
+                                    <p class="member-role" style="font-size:13px; color:var(--primary-gold); margin-bottom:6px;">${member.matchedRole}</p>
+                                    <p class="member-direction" style="font-size:14px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${direction}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div></div>';
+                    teamContainer.innerHTML += html;
+                });
+            })
+            .catch(err => { console.error(err); });
+    }
+
+    // 2. Logic for member_detail.html (Detail View)
+    const detailContainer = document.getElementById('dynamic-detail-container');
+    if (detailContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const memberId = urlParams.get('id');
+        
+        if (!memberId) {
+            document.getElementById('loading-spinner').innerHTML = '缺少成员 ID，无法加载资料。';
+            return;
+        }
+
+        fetch(`${apiBase}/wp/v2/posts/${memberId}?_embed`)
+            .then(res => {
+                if(!res.ok) throw new Error('Not found');
+                return res.json();
+            })
+            .then(member => {
+                document.getElementById('loading-spinner').style.display = 'none';
+                detailContainer.style.display = 'flex';
+                
+                // Determine Role
+                let role = "前沿探索者";
+                if (member._embedded && member._embedded['wp:term']) {
+                    const cats = member._embedded['wp:term'][0];
+                    if (cats && cats.length > 0) role = cats.map(c=>c.name).join(' / ');
+                }
+                
+                // Determine Avatar
+                let avatarUrl = '';
+                if (member._embedded && member._embedded['wp:featuredmedia']) {
+                    let originalUrl = member._embedded['wp:featuredmedia'][0].source_url;
+                    avatarUrl = isLocal ? originalUrl : originalUrl.replace('http://39.98.79.172/wp-content/uploads/', '/cms-media/');
+                }
+                
+                // Parse Excerpt lines for Direction and Contact
+                let rawText = member.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                let lines = rawText.split(/[\n\r]+/).map(r => r.trim()).filter(r => r !== '');
+                let direction = lines[0] || '暂无数据';
+                let contact = lines[1] || '邮箱未公开';
+                
+                // Fill DOM
+                if(avatarUrl) {
+                    document.getElementById('member-avatar').innerHTML = `<img src="${avatarUrl}" alt="Profile">`;
+                }
+                document.getElementById('member-name').textContent = member.title.rendered;
+                document.getElementById('member-role').textContent = role;
+                document.getElementById('member-direction').textContent = direction;
+                document.getElementById('member-contact').textContent = contact;
+                
+                let contentHTML = member.content.rendered.trim();
+                document.getElementById('member-content').innerHTML = contentHTML || '<h2 style="margin-top:0;">个人履历</h2><p>该老师/同学很低调，暂且没有录入详细的个人成果和简介。</p>';
+            })
+            .catch(err => {
+                document.getElementById('loading-spinner').innerHTML = '成员档案拉取失败或查无此人。';
+            });
+    }
+});

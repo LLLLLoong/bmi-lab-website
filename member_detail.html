@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成员详情 - BMI&IE Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .detail-section { 
+            padding: 140px 0 80px; 
+            background-color: var(--white);
+            min-height: calc(100vh - 200px);
+        }
+        .detail-layout {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        .detail-left {
+            flex: 0 0 320px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 100px;
+        }
+        .detail-right {
+            flex: 1;
+            padding: 10px;
+        }
+        
+        .avatar-box {
+            width: 100%;
+            height: 380px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            background-color: #EAEAEA;
+            margin-bottom: 24px;
+        }
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+        
+        .info-name { font-size: 28px; color: var(--text-dark); margin-bottom: 8px; }
+        .info-role { font-size: 16px; color: var(--primary-gold); font-weight: 500; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #EEE; }
+        
+        .info-group { margin-bottom: 16px; }
+        .info-label { font-size: 13px; color: #999; margin-bottom: 4px; display:block; }
+        .info-value { font-size: 15px; color: var(--text-dark); line-height: 1.5; }
+        
+        .wp-content-panel h2, .wp-content-panel h3 { 
+            font-size: 22px; 
+            color: var(--text-dark); 
+            border-bottom: 2px solid var(--border-light); 
+            padding-bottom: 12px; 
+            margin: 0 0 24px 0; 
+            position: relative;
+        }
+        .wp-content-panel h2::after, .wp-content-panel h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary-gold);
+        }
+        .wp-content-panel p { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 16px; text-align: justify; }
+        .wp-content-panel ul, .wp-content-panel ol { padding-left: 20px; margin-bottom: 20px; color: var(--text-muted); line-height:1.7; }
+        .wp-content-panel li { margin-bottom: 10px; }
+        
+        .back-btn { display: inline-flex; align-items: center; color: var(--primary-gold); text-decoration: none; font-weight: 500; margin-bottom: 32px; transition: var(--transition); }
+        .back-btn:hover { transform: translateX(-4px); }
+
+        @media (max-width: 900px) {
+            .detail-layout { flex-direction: column; }
+            .detail-left { flex: none; width: 100%; position: static; }
+        }
+    </style>
+</head>
+<body>
+    <header id="navbar" class="navbar">
+        <div class="nav-container-inner">
+            <div class="nav-left">
+                <div class="logo-container">
+                    <a href="index.html">
+                        <img src="assets/logo.png" alt="BMI&IE Lab Logo" class="logo-img">
+                    </a>
+                </div>
+                <nav class="nav-links">
+                    <a href="index.html" class="nav-item">首页</a>
+                    <a href="research.html" class="nav-item">研究方向</a>
+                    <a href="team.html" class="nav-item active">团队成员</a>
+                    <a href="publications.html" class="nav-item">科研成果</a>
+                    <a href="news.html" class="nav-item">实验室动态</a>
+                </nav>
+            </div>
+            <div class="nav-right">
+                <button id="search-btn" class="search-btn"><svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+                <div class="mobile-menu-btn"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="detail-section">
+        <div class="container">
+            <a href="team.html" class="back-btn">← 返回团队列表</a>
+            
+            <div id="loading-spinner" style="text-align:center; padding: 100px; color:#888;">正在提取成员资料...</div>
+            
+            <div id="dynamic-detail-container" class="detail-layout" style="display:none;">
+                <div class="detail-left fade-up-element">
+                    <div class="avatar-box" id="member-avatar">
+                        <div style="background: #2a2a2a; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #555;">No Photo</div>
+                    </div>
+                    <div class="info-name" id="member-name">Name</div>
+                    <div class="info-role" id="member-role">Role</div>
+                    
+                    <div class="info-group">
+                        <span class="info-label">研究方向</span>
+                        <div class="info-value" id="member-direction">-</div>
+                    </div>
+                    <div class="info-group" style="margin-bottom:0;">
+                        <span class="info-label">联系方式</span>
+                        <div class="info-value" id="member-contact">-</div>
+                    </div>
+                </div>
+                
+                <div class="detail-right wp-content-panel fade-up-element" style="transition-delay: 0.1s;" id="member-content">
+                    <!-- WordPress Content goes here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Segment -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand"><h3>BMI&IE Lab</h3><p>脑机智能与交叉工程实验室</p></div>
+                <div class="footer-links"><p>地址：中国 · XX大学 · XX楼</p><p>邮箱：contact@bmi_ie_lab.edu</p></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 BMI&IE LAB. All Rights Reserved.</p></div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
