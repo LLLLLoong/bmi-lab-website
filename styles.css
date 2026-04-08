@@ -1256,3 +1256,58 @@ body.page-loaded {
     .team-grid { grid-template-columns: 1fr; }
     .thfl-img { flex: 0 0 120px; }
 }
+
+/* =========================================
+   Logo Enhancement Overrides
+   ========================================= */
+
+/* Enlarge logo from 50px to 65px */
+.logo-container img,
+.logo-img {
+    height: 65px !important;
+    width: auto;
+}
+
+/* Increase navbar height to accommodate larger logo */
+.nav-container-inner {
+    height: 88px !important;
+}
+
+/* Adjust search overlay and mobile nav to match new height */
+.search-overlay {
+    top: 88px !important;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        top: 88px !important;
+    }
+}
+
+/* Logo + text flex layout */
+.logo-container a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.navbar.nav-scrolled .logo-text {
+    color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+    .logo-text {
+        display: none; /* Hide text on small screens to save space */
+    }
+}
