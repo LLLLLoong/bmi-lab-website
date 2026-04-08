@@ -251,15 +251,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         let direction = lines[0] || '暂无研究方向';
                         
                         html += `
-                            <div class="team-card dynamic-team-card" onclick="window.location.href='member_detail.html?id=${member.id}'" style="cursor:pointer;">
-                                <style>.dynamic-team-card:hover .member-placeholder { transform: scale(1.05); }</style>
-                                <div class="member-img-wrapper" style="overflow:hidden;">
+                            <div class="team-card dynamic-team-card thfl-card" onclick="window.location.href='member_detail.html?id=${member.id}'">
+                                <div class="member-img-wrapper thfl-img">
                                     ${avatarHtml}
                                 </div>
-                                <div class="member-info">
-                                    <h4 class="member-name">${member.title.rendered}</h4>
-                                    <p class="member-role" style="font-size:13px; color:var(--primary-gold); margin-bottom:6px;">${member.matchedRole}</p>
-                                    <p class="member-direction" style="font-size:14px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${direction}</p>
+                                <div class="member-info thfl-info">
+                                    <h4 class="member-name thfl-name">${member.title.rendered}</h4>
+                                    <p class="member-role thfl-role">${member.matchedRole}</p>
+                                    <p class="member-direction thfl-direction">${direction}</p>
                                 </div>
                             </div>
                         `;
