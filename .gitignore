@@ -20,3 +20,6 @@ Thumbs.db
 # Temp scripts
 _wp_*.js
 _update_*.js
+
+# Local guides & docs (not for GitHub)
+WordPress*.txt

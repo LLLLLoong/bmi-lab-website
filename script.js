@@ -355,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Publications List Page (publications.html)
     const pubListContainer = document.getElementById('dynamic-pub-list');
+    const pubFiltersContainer = document.getElementById('dynamic-pub-filters');
     if (pubListContainer) {
         fetch(`${apiBase}/wp/v2/posts?per_page=100&_embed`)
             .then(res => res.json())
@@ -381,20 +382,103 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                pubListContainer.innerHTML = '';
-                pubPosts.forEach((post, index) => {
-                    const titleText = post.title.rendered;
-                    let citationText = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                // ---- Render function ----
+                function renderPubList(filteredPosts) {
+                    pubListContainer.innerHTML = '';
+                    if (filteredPosts.length === 0) {
+                        pubListContainer.innerHTML = '<div style="text-align:center; padding: 60px; color:#888;">该分类下暂无论文。</div>';
+                        return;
+                    }
+                    filteredPosts.forEach((post, index) => {
+                        const titleText = post.title.rendered;
+                        let citationText = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                        // Get category tags for display
+                        let catTags = '';
+                        if (post._embedded && post._embedded['wp:term']) {
+                            const cats = post._embedded['wp:term'][0] || [];
+                            catTags = cats
+                                .filter(c => !pubKeywords.some(kw => c.name.toLowerCase().includes(kw)) && c.name !== '未分类')
+                                .map(c => `<span class="pub-cat-tag">${c.name}</span>`)
+                                .join('');
+                        }
 
-                    const entryHtml = `<div class="pub-entry fade-up-element visible" style="transition-delay: ${index * 0.05}s; opacity:1; transform:translateY(0);">
-                        <h3 class="pub-entry-title" style="cursor:pointer;" onclick="window.location.href='pub_detail.html?id=${post.id}'">${titleText}</h3>
-                        <p class="pub-entry-meta">${citationText}</p>
-                        <div class="pub-entry-links">
-                            <a href="pub_detail.html?id=${post.id}">[摘要]</a>
-                        </div>
-                    </div>`;
-                    pubListContainer.innerHTML += entryHtml;
-                });
+                        const entryHtml = `<div class="pub-entry fade-up-element visible" style="transition-delay: ${index * 0.05}s; opacity:1; transform:translateY(0);">
+                            <h3 class="pub-entry-title" style="cursor:pointer;" onclick="window.location.href='pub_detail.html?id=${post.id}'">${titleText}</h3>
+                            <p class="pub-entry-meta">${citationText}</p>
+                            <div class="pub-entry-links">
+                                <a href="pub_detail.html?id=${post.id}">[摘要]</a>
+                                ${catTags}
+                            </div>
+                        </div>`;
+                        pubListContainer.innerHTML += entryHtml;
+                    });
+                }
+
+                // ---- Build sidebar filters ----
+                if (pubFiltersContainer) {
+                    // Collect all unique direction categories from the data
+                    const directionMap = new Map(); // catId -> catName
+                    pubPosts.forEach(post => {
+                        if (post._embedded && post._embedded['wp:term']) {
+                            const cats = post._embedded['wp:term'][0] || [];
+                            cats.forEach(cat => {
+                                if (!pubKeywords.some(kw => cat.name.toLowerCase().includes(kw)) && cat.name !== '未分类') {
+                                    directionMap.set(cat.id, cat.name);
+                                }
+                            });
+                        }
+                    });
+
+                    let filterHTML = '';
+
+                    // "All" button
+                    filterHTML += `<div class="sidebar-group">
+                        <h5 class="sidebar-label">■ 研究方向</h5>
+                        <ul class="sidebar-list">
+                            <li><a href="#" class="filter-link active" data-filter="all"><span class="filter-icon active">■</span> 全部 (${pubPosts.length})</a></li>`;
+                    
+                    directionMap.forEach((name, id) => {
+                        const count = pubPosts.filter(p => {
+                            const cats = p._embedded?.['wp:term']?.[0] || [];
+                            return cats.some(c => c.id === id);
+                        }).length;
+                        filterHTML += `<li><a href="#" class="filter-link" data-filter="${id}"><span class="filter-icon">□</span> ${name} (${count})</a></li>`;
+                    });
+
+                    filterHTML += `</ul></div>`;
+                    pubFiltersContainer.innerHTML = filterHTML;
+
+                    // Bind click events
+                    pubFiltersContainer.querySelectorAll('.filter-link').forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            // Toggle active state
+                            pubFiltersContainer.querySelectorAll('.filter-link').forEach(l => {
+                                l.classList.remove('active');
+                                l.querySelector('.filter-icon').classList.remove('active');
+                                l.querySelector('.filter-icon').textContent = '□';
+                            });
+                            link.classList.add('active');
+                            link.querySelector('.filter-icon').classList.add('active');
+                            link.querySelector('.filter-icon').textContent = '■';
+
+                            const filterVal = link.dataset.filter;
+                            if (filterVal === 'all') {
+                                renderPubList(pubPosts);
+                            } else {
+                                const catId = parseInt(filterVal);
+                                const filtered = pubPosts.filter(p => {
+                                    const cats = p._embedded?.['wp:term']?.[0] || [];
+                                    return cats.some(c => c.id === catId);
+                                });
+                                renderPubList(filtered);
+                            }
+                        });
+                    });
+                }
+
+                // Initial render
+                renderPubList(pubPosts);
             })
             .catch(err => {
                 console.error('Publication fetch error:', err);
