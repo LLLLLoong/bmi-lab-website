@@ -16,3 +16,7 @@ Thumbs.db
 
 # WordPress credentials
 .wp_credentials
+
+# Temp scripts
+_wp_*.js
+_update_*.js

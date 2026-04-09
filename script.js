@@ -128,13 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(posts => {
                 const teamKeywords = ['pi', '教授', '负责人', '特岗', 'postdoc', '博士后', 'phd', '博士', '博士生', 'master', '硕士', '硕士生', 'alumni', '校友', '毕业'];
+                const pubKeywords = ['publication', '论文', '学术文章', '科研成果', '专利', 'paper'];
                 
                 const newsPosts = posts ? posts.filter(post => {
                     if (post._embedded && post._embedded['wp:term']) {
                         const categories = post._embedded['wp:term'][0] || [];
+                        const allFilterKeywords = [...teamKeywords, ...pubKeywords];
                         return !categories.some(cat => {
                             const catName = cat.name.toLowerCase();
-                            return teamKeywords.some(kw => catName.includes(kw));
+                            return allFilterKeywords.some(kw => catName.includes(kw));
                         });
                     }
                     return true;
@@ -338,6 +340,111 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 document.getElementById('loading-spinner').innerHTML = '成员档案拉取失败或查无此人。';
+            });
+    }
+});
+
+
+// -----------------------------------------------------
+// WordPress CMS: PUBLICATIONS LIST + DETAIL
+// -----------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const apiBase = isLocal ? 'http://39.98.79.172/wp-json' : '/cms-api';
+    const pubKeywords = ['publication', '论文', '学术文章', '科研成果', '专利', 'paper'];
+
+    // 1. Publications List Page (publications.html)
+    const pubListContainer = document.getElementById('dynamic-pub-list');
+    if (pubListContainer) {
+        fetch(`${apiBase}/wp/v2/posts?per_page=100&_embed`)
+            .then(res => res.json())
+            .then(posts => {
+                if (!posts || posts.length === 0) {
+                    pubListContainer.innerHTML = '<div style="text-align:center; padding: 80px; color:#888;">数据库中暂无科研成果记录。</div>';
+                    return;
+                }
+
+                // Filter only posts with publication categories
+                const pubPosts = posts.filter(post => {
+                    if (post._embedded && post._embedded['wp:term']) {
+                        const categories = post._embedded['wp:term'][0] || [];
+                        return categories.some(cat => {
+                            const catName = cat.name.toLowerCase();
+                            return pubKeywords.some(kw => catName.includes(kw));
+                        });
+                    }
+                    return false;
+                });
+
+                if (pubPosts.length === 0) {
+                    pubListContainer.innerHTML = '<div style="text-align:center; padding: 80px; color:#888;">数据库中暂无科研成果记录。<br><br>请在 WordPress 后台发布文章，并将分类设为"论文"或"学术文章"。</div>';
+                    return;
+                }
+
+                pubListContainer.innerHTML = '';
+                pubPosts.forEach((post, index) => {
+                    const titleText = post.title.rendered;
+                    let citationText = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+
+                    const entryHtml = `<div class="pub-entry fade-up-element visible" style="transition-delay: ${index * 0.05}s; opacity:1; transform:translateY(0);">
+                        <h3 class="pub-entry-title" style="cursor:pointer;" onclick="window.location.href='pub_detail.html?id=${post.id}'">${titleText}</h3>
+                        <p class="pub-entry-meta">${citationText}</p>
+                        <div class="pub-entry-links">
+                            <a href="pub_detail.html?id=${post.id}">[摘要]</a>
+                        </div>
+                    </div>`;
+                    pubListContainer.innerHTML += entryHtml;
+                });
+            })
+            .catch(err => {
+                console.error('Publication fetch error:', err);
+                pubListContainer.innerHTML = '<div style="text-align:center; padding: 80px; color:#A68952; border: 1px dashed #A68952; border-radius: 8px;">连接到 WordPress 数据中台失败。<br><br>请确保服务器状态正常！</div>';
+            });
+    }
+
+    // 2. Publication Detail Page (pub_detail.html)
+    const pubDetailContainer = document.getElementById('pub-detail-container');
+    if (pubDetailContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pubId = urlParams.get('id');
+
+        if (!pubId) {
+            document.getElementById('pub-loading').innerHTML = '缺少论文 ID，无法加载详情。';
+            return;
+        }
+
+        fetch(`${apiBase}/wp/v2/posts/${pubId}?_embed`)
+            .then(res => {
+                if (!res.ok) throw new Error('Not found');
+                return res.json();
+            })
+            .then(post => {
+                document.getElementById('pub-loading').style.display = 'none';
+                pubDetailContainer.style.display = 'block';
+
+                // Title
+                document.getElementById('pub-title').textContent = post.title.rendered;
+
+                // Excerpt as citation
+                let citationText = post.excerpt.rendered.replace(/<[^>]+>/g, '').trim();
+                document.getElementById('pub-authors').textContent = citationText;
+
+                // Category as journal label
+                let journalLabel = '学术论文';
+                if (post._embedded && post._embedded['wp:term']) {
+                    const cats = post._embedded['wp:term'][0];
+                    if (cats && cats.length > 0) {
+                        journalLabel = cats.map(c => c.name).join(' / ');
+                    }
+                }
+                document.getElementById('pub-journal').textContent = journalLabel;
+
+                // Content = abstract + keywords
+                let contentHTML = post.content.rendered.trim();
+                document.getElementById('pub-content').innerHTML = contentHTML || '<h2 style="margin-top:0;">摘要</h2><p>暂未录入摘要信息。</p>';
+            })
+            .catch(err => {
+                document.getElementById('pub-loading').innerHTML = '论文详情加载失败或查无此文。';
             });
     }
 });
